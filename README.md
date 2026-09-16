@@ -1,4 +1,4 @@
-# GeoFlow Guide 0.2.0
+# GeoFlow Guide 0.2.1
 
 GeoFlow Guide is a standalone QGIS plugin for layer-aware, plain-language
 workflow guidance. Install one ZIP; everything runs inside QGIS.
@@ -6,7 +6,7 @@ workflow guidance. Install one ZIP; everything runs inside QGIS.
 ## Install and test
 
 1. In QGIS, open **Plugins → Manage and Install Plugins → Install from ZIP**.
-2. Select `geoflow-guide-0.2.0.zip`.
+2. Select `geoflow-guide-0.2.1.zip`.
 3. Open **Vector → GeoFlow Guide**.
 4. Choose a Point, Line or Polygon sample and click **Load Sample**, or select one of your own layers.
 5. Choose a recommended task, read its explanation and click **Run Task**.

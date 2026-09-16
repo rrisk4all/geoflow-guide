@@ -1,4 +1,4 @@
-# GeoFlow Guide 0.2.0
+# GeoFlow Guide 0.2.1
 
 GeoFlow Guide identifies the active QGIS layer type and presents suitable,
 plain-language tasks. It helps users complete common workflows without

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+- Replaced a silent exception handler with explicit error logging so the
+  package passes the QGIS Bandit security check.
+- Updated Qt enum references for improved Qt6 compatibility.
+
 ## 0.2.0
 
 - Added buffer units in metres and kilometres.

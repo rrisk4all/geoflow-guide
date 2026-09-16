@@ -44,7 +44,9 @@ class GeoFlowGuidePlugin:
             self.dock.load_sample_requested.connect(self.load_sample)
             self.dock.help_requested.connect(self.show_help)
             self.dock.self_check_requested.connect(self.run_self_check)
-            self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
+            self.iface.addDockWidget(
+                Qt.DockWidgetArea.RightDockWidgetArea, self.dock
+            )
             self.layer_change_handler = lambda _: self.refresh()
             self.iface.currentLayerChanged.connect(self.layer_change_handler)
         self.dock.show()
@@ -368,8 +370,10 @@ class GeoFlowGuidePlugin:
                     self.iface.currentLayerChanged.disconnect(
                         self.layer_change_handler
                     )
-            except Exception:
-                pass
+            except (TypeError, RuntimeError) as exc:
+                self.dock.log(
+                    "Could not disconnect the layer-change handler: %s" % exc
+                )
             self.iface.removeDockWidget(self.dock)
             self.dock.deleteLater()
         if self.action:

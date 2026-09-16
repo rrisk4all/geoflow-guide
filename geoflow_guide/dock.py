@@ -22,7 +22,10 @@ class GeoFlowDock(QDockWidget):
 
     def __init__(self, parent=None):
         super().__init__("GeoFlow Guide", parent)
-        self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.setAllowedAreas(
+            Qt.DockWidgetArea.LeftDockWidgetArea
+            | Qt.DockWidgetArea.RightDockWidgetArea
+        )
         root = QWidget(self)
         layout = QVBoxLayout(root)
 
@@ -83,7 +86,7 @@ class GeoFlowDock(QDockWidget):
         self.remove_button.setEnabled(False)
         self.remove_button.clicked.connect(
             lambda: self.remove_result_requested.emit(
-                self.results.currentItem().data(Qt.UserRole)
+                self.results.currentItem().data(Qt.ItemDataRole.UserRole)
                 if self.results.currentItem()
                 else ""
             )
@@ -113,7 +116,9 @@ class GeoFlowDock(QDockWidget):
         for task in tasks:
             self.tasks.addItem(task["label"], task["id"])
             index = self.tasks.count() - 1
-            self.tasks.setItemData(index, task["description"], Qt.ToolTipRole)
+            self.tasks.setItemData(
+                index, task["description"], Qt.ItemDataRole.ToolTipRole
+            )
         self.run_button.setEnabled(bool(tasks))
         self._show_description()
 
@@ -128,19 +133,26 @@ class GeoFlowDock(QDockWidget):
 
     def _show_description(self):
         index = self.tasks.currentIndex()
-        text = self.tasks.itemData(index, Qt.ToolTipRole) if index >= 0 else None
+        text = (
+            self.tasks.itemData(index, Qt.ItemDataRole.ToolTipRole)
+            if index >= 0
+            else None
+        )
         self.description.setText(text or "Select a task.")
 
     def add_result(self, layer_id, name):
         self.results.addItem(name)
         item = self.results.item(self.results.count() - 1)
-        item.setData(Qt.UserRole, layer_id)
+        item.setData(Qt.ItemDataRole.UserRole, layer_id)
         self.results.setCurrentItem(item)
         self.remove_button.setEnabled(True)
 
     def remove_result(self, layer_id):
         for row in range(self.results.count()):
-            if self.results.item(row).data(Qt.UserRole) == layer_id:
+            if (
+                self.results.item(row).data(Qt.ItemDataRole.UserRole)
+                == layer_id
+            ):
                 self.results.takeItem(row)
                 break
         self.remove_button.setEnabled(self.results.count() > 0)
